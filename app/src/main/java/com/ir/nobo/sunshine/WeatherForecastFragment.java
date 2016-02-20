@@ -1,6 +1,8 @@
 package com.ir.nobo.sunshine;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.util.Log;
@@ -47,23 +49,22 @@ public class WeatherForecastFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_main, container, false);
-        String[] forecastArray = {"Today - Sunny - 88/63",
+        /*String[] forecastArray = {"Today - Sunny - 88/63",
                             "Tomorrow - Foggy - 70/46",
                             "Weds - Cloudy - 72/63",
                             "Thurs - Rainy - 64/51",
                             "Fri - Foggy - 70/46",
                             "Sat - Sunny - 88/63",
                             "Sun - Sunny - 83/66",
-                            "Mon - Foggy - 78/61"};
+                            "Mon - Foggy - 78/61"};*/
 
-        List<String> weekForecast = new ArrayList<String>(Arrays.asList(forecastArray));
-        forecastAdapter = new ArrayAdapter<String>(getActivity(),R.layout.list_item_forecast, R.id.list_item_forecast_textview, weekForecast);
+        //List<String> weekForecast = new ArrayList<String>(Arrays.asList(forecastArray));
+        forecastAdapter = new ArrayAdapter<String>(getActivity(),R.layout.list_item_forecast, R.id.list_item_forecast_textview, new ArrayList<String>());
 
         ListView listView = (ListView)rootView.findViewById(R.id.listview_forecast);
         listView.setAdapter(forecastAdapter);
 
-        WeatherForecastAsyncTask wfat = new WeatherForecastAsyncTask(forecastAdapter, getActivity());
-        //wfat.execute("700014,IN");
+        updateWeatherForecastData();
         /*listView.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -89,6 +90,13 @@ public class WeatherForecastFragment extends Fragment {
         return rootView;
     }
 
+    private void updateWeatherForecastData() {
+        WeatherForecastAsyncTask wfat = new WeatherForecastAsyncTask(forecastAdapter, getActivity());
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        String location = sp.getString(getString(R.string.pref_location_key), getString(R.string.pref_location_default));
+        wfat.execute(location);
+    }
+
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.forecast_fragment_menu, menu);
@@ -104,11 +112,8 @@ public class WeatherForecastFragment extends Fragment {
         }*/
 
         if(itemId == R.id.action_refresh) {
-            Log.d(LOG_TAG, "I am clicked");
-            WeatherForecastAsyncTask wfat = new WeatherForecastAsyncTask(forecastAdapter, getActivity());
-            wfat.execute("700014,IN");
-            //Toast.makeText(getActivity(), "Screen is refreshed", Toast.LENGTH_LONG).show();
-
+            updateWeatherForecastData();
+            return true;
         }
         return super.onOptionsItemSelected(item);
     }
