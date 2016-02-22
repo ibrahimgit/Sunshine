@@ -13,6 +13,23 @@ import android.view.MenuItem;
 public class SettingsActivity extends PreferenceActivity implements Preference.OnPreferenceChangeListener {
 
     @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        addPreferencesFromResource(R.xml.pereference_general);
+
+        bindPreferenceSummaryToValue(findPreference(getString(R.string.pref_location_key)));
+        bindPreferenceSummaryToValue(findPreference(getString(R.string.pref_units_key)));
+
+    }
+
+    private void bindPreferenceSummaryToValue(Preference preference){
+        preference.setOnPreferenceChangeListener(this);
+
+        onPreferenceChange(preference, PreferenceManager.getDefaultSharedPreferences(preference.getContext()).getString(preference.getKey(), ""));
+    }
+
+    @Override
     public boolean onPreferenceChange(Preference preference, Object value) {
         String stringValue = value.toString();
 
@@ -29,22 +46,6 @@ public class SettingsActivity extends PreferenceActivity implements Preference.O
             preference.setSummary(stringValue);
         }
         return true;
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        addPreferencesFromResource(R.xml.pereference_general);
-
-        bindPreferenceSummaryToValue(findPreference(getString(R.string.pref_location_key)));
-
-    }
-
-    private void bindPreferenceSummaryToValue(Preference preference){
-        preference.setOnPreferenceChangeListener(this);
-
-        onPreferenceChange(preference, PreferenceManager.getDefaultSharedPreferences(preference.getContext()).getString(preference.getKey(), ""));
     }
 
 }

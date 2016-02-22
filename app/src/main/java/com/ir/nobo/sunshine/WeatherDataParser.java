@@ -58,7 +58,7 @@ public class WeatherDataParser {
     }
 
     private static String getTempForematString(double minTemp, double maxTemp) {
-        return Math.round(maxTemp) + "/" + Math.round(maxTemp);
+        return Math.round(maxTemp) + "/" + Math.round(minTemp);
     }
 
     private static String getDateString(Date forecastDate) {

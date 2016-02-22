@@ -46,6 +46,12 @@ public class WeatherForecastFragment extends Fragment {
     }
 
     @Override
+    public void onStart() {
+        super.onStart();
+        updateWeatherForecastData();
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_main, container, false);
@@ -64,7 +70,6 @@ public class WeatherForecastFragment extends Fragment {
         ListView listView = (ListView)rootView.findViewById(R.id.listview_forecast);
         listView.setAdapter(forecastAdapter);
 
-        updateWeatherForecastData();
         /*listView.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -94,7 +99,9 @@ public class WeatherForecastFragment extends Fragment {
         WeatherForecastAsyncTask wfat = new WeatherForecastAsyncTask(forecastAdapter, getActivity());
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getActivity());
         String location = sp.getString(getString(R.string.pref_location_key), getString(R.string.pref_location_default));
-        wfat.execute(location);
+        String units = sp.getString(getString(R.string.pref_units_key), getString(R.string.pref_units_metric));
+        //Toast.makeText(getActivity(),location,Toast.LENGTH_LONG);
+        wfat.execute(location, units);
     }
 
     @Override

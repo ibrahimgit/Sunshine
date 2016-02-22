@@ -33,10 +33,10 @@ public class WeatherForecastAsyncTask extends AsyncTask<String, String, String[]
     @Override
     protected String[] doInBackground(String... params) {
         Log.d(LOG_NAME,"doInBackground");
-        return  getForecastWeather(params[0]);
+        return  getForecastWeather(params[0], params[1]);
     }
 
-    private String[] getForecastWeather(String postalCode) {
+    private String[] getForecastWeather(String postalCode, String format) {
         // These two need to be declared outside the try/catch
         // so that they can be closed in the finally block.
         HttpURLConnection urlConnection = null;
@@ -45,7 +45,7 @@ public class WeatherForecastAsyncTask extends AsyncTask<String, String, String[]
         // Will contain the raw JSON response as a string.
         String forecastJsonStr = null;
         String[] forecastStringArray = null;
-        String format = "metric";
+        //String format = "metric";
         String cnt = "7";
         String appid = "907f14649dd7564b21d2d4a61d954414";
 
