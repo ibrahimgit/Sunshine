@@ -18,6 +18,7 @@
     <string name="pref_units_key" translatable="false">units</string>
     <string name="pref_units_metric">metric</string>
     <string name="pref_units_imperial">imperial</string>
+    <string name="content_authority">com.ir.nobo.sunshine</string>
 
 
 </resources>

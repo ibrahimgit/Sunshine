@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -13,10 +14,13 @@ import android.widget.Toast;
 
 public class MainActivity extends ActionBarActivity {
 
+    private static final String LOG_TAG = MainActivity.class.getSimpleName();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Log.d(LOG_TAG, "On Create");
         //Toast.makeText(getApplicationContext(), "Hello World", Toast.LENGTH_SHORT);
         /*if(savedInstanceState != null) {
             Toast.makeText(getApplicationContext(), "Ibrahim Rashid Ibrahim", Toast.LENGTH_LONG);
@@ -24,6 +28,37 @@ public class MainActivity extends ActionBarActivity {
         }*/
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Log.d(LOG_TAG, "On Start");
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.d(LOG_TAG, "On Resume");
+    }
+
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Log.d(LOG_TAG, "On Pause");
+
+    }
+
+    @Override
+    protected void onStop() {
+        super.onPause();
+        Log.d(LOG_TAG, "On Stop");
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.d(LOG_TAG, "On Destroy");
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

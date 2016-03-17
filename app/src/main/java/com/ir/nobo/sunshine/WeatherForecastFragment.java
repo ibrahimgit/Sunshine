@@ -42,13 +42,39 @@ public class WeatherForecastFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d(LOG_TAG, "On create");
         setHasOptionsMenu(true);
     }
 
     @Override
     public void onStart() {
         super.onStart();
+        Log.d(LOG_TAG, "On Start");
         updateWeatherForecastData();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.d(LOG_TAG, "On Resume");
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        Log.d(LOG_TAG, "On Pause");
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        Log.d(LOG_TAG, "On Stop");
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log.d(LOG_TAG, "On Destroy");
     }
 
     @Override

@@ -116,8 +116,8 @@ public class WeatherForecastAsyncTask extends AsyncTask<String, String, String[]
         }
         Log.d(LOG_NAME, forecastJsonStr);
         try {
-            forecastStringArray = WeatherDataParser.parseWeatherData(forecastJsonStr);
-            Log.d(LOG_NAME, forecastStringArray.toString());
+            forecastStringArray = WeatherDataParser.parseWeatherData(forecastJsonStr, postalCode, context);
+            //Log.d(LOG_NAME, forecastStringArray.toString());
         } catch (JSONException je) {
             Log.e(LOG_NAME,"JSON Exception: ", je);
         }
